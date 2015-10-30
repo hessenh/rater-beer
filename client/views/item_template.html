@@ -1,0 +1,54 @@
+<template name="item">
+	{{#if claimed}}
+		<div class="item">
+			<div class="notice notice-lg">
+				<div class="brand-name">
+					<strong>{{name}}</strong> 
+				</div>
+				<div class="item-logo">
+					 <img src="/{{logo}}" class="img-responsive img-rounded" alt="Cinque Terre">
+				</div>
+		    </div>
+		</div>
+	{{else}}
+		<div class="item green">
+			<div class="notice notice-lg">
+				<div class="brand-name">
+					<strong>{{brand}}</strong> - <strong>{{name}}</strong> 
+				</div>
+				<div class="item-logo">
+					 <img src="/{{logo}}" class="img-responsive img-rounded" alt="Cinque Terre">
+				</div>
+		    </div>
+		</div>
+	
+	{{/if}}
+	
+</template>
+
+
+<template name="items">
+    {{#if searchfield}}
+    	<div class="item-list">
+		    {{#esEach index="people"}}
+		        {{>item}}
+		    {{/esEach}}
+    	</div>
+    {{else}}
+    	<div class="item-list">
+	        {{#each allItems}}
+	            {{>item}}
+	        {{/each}}
+    	</div>
+    {{/if}}
+
+    {{#ifEsHasNoResults index="people"}}
+		{{>add_item}}
+    {{/ifEsHasNoResults}}
+
+    {{#ifEsIsSearching index="people"}}
+        <div class="loading">
+            {{> spinner}}
+        </div>
+    {{/ifEsIsSearching}}
+</template>

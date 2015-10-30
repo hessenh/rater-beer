@@ -1,0 +1,14 @@
+<template name="collected_item">
+ 	<div class="container item">
+    	<h1>{{name}} - {{brand}} <button class="btn btn-default claimItem" type="button">Claim!</button></h1>
+	</div>
+</template>
+
+
+<template name="collected_items">
+	<div class="container">
+		{{#each collected_items}}
+			{{>collected_item}}
+		{{/each}}
+	</div>
+</template>

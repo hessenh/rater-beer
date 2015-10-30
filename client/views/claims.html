@@ -1,0 +1,46 @@
+<template name="claims">
+	 <div class="item-box">
+        <div class="col-md-6">
+            <div class="item-img">
+               <div class="item-name">
+                   <h3>{{currentUser.username}}</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="score">
+
+                        </div>
+                        <img src="/beerprofile.png" class="img-responsive img-rounded" alt="Cinque Terre">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="item-description">
+                            <div class="title">
+                                Stati
+                            </div>
+                            <div class="content">
+                                You thought bitterness was going out of fashion? It isn't, not here anyway where it becomes a sturdy undercurrent, nagging away with little questions while you try and turn off and enjoy your conversation, or pool, or crisps. Whatever. You'll get it, after a couple of pints.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+        </div>
+        <div class="col-md-6">
+            <div class="claims-box">
+            	<div class="claims-list-title">
+            		<h3>Your claims</h3>
+            	</div>
+        		{{#each claimedList}}
+        			{{>claim_item}}
+        		{{/each}}
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<template name="claim_item">
+ 	<div class="claim-item">
+		{{brand}} - {{name}}
+	</div>
+</template>

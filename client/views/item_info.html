@@ -1,0 +1,83 @@
+<template name="item_info">
+
+    <div class="item-box">
+        <div class="col-md-6">
+            <div class="item-img">
+               <div class="item-name">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3>{{name}}</h3>
+                        </div>
+                        <div class="col-md-6">
+                            {{#if claimed}}
+                                <button type="button" class="btn btn-success btn-circle btn-lg claim button-claim"><i class="glyphicon glyphicon-ok"></i></button>
+                            {{else}}
+                                 <button type="button" class="btn btn-success btn-circle btn-lg claim button-un-claim"><i class="glyphicon glyphicon-remove"></i></button>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="/{{logo}}" class="img-responsive img-rounded" alt="Cinque Terre">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="item-description">
+                            <div class="score">
+                                <!-- https://atmospherejs.com/barbatus/stars-rating -->
+                                {{> starsRating rating=rating_score size='lg'  class='review-star'}}
+                            </div>
+                            <div class="title">
+                                Description
+                            </div>
+                            <div class="content-one">
+                                {{description}}
+                            </div>
+                            <div class="content-two">
+                                Style: {{style}}<br>
+                                Type {{type}}<br>
+                                ABV: {{ABV}}%<br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+        </div>
+        <div class="col-md-6">
+            <div class="item-review">
+                <div class="title">  
+                Reviews
+                </div>
+                <div class="review-input">
+                    <div class="form-group">
+                        <div class="label">
+                            What do you think?
+                        </div>
+                        <div class="give-star">
+                            {{> starsRating id="rating" rating=0 size='sm' class='review-star' mutable=true}}
+                        </div>
+                        <textarea class="form-control comment-field" rows="2" id="comment"></textarea>
+                            
+                    </div>
+                </div>
+                <div class="reviwes">
+                    {{#each comments_list}}
+                        <div class="review">
+                            <div class="col-md-2">
+                                <img src="/beerprofile.png" class="img-responsive review-thumnail" alt="Cinque Terre">
+                            </div>
+                            <div class="col-md-8">
+                                {{> starsRating rating=r size='sm' class='review-star'}}
+                                {{currentUser.username}} - {{comment}}
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+  
+            
+
+</template>
+
