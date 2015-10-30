@@ -16,6 +16,6 @@ Template.claims.helpers({
 Template.claim_item.events({
     'click .claim-item': function(event) {
       event.preventDefault();
-      Router.go('/items/'+this._id);
+      Router.go('/items/'+this.beer_id);
     }
 })
