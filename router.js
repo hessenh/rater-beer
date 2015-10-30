@@ -10,3 +10,4 @@ Router.route('/items/:_id', {
 });
 
 Router.route('claims');
+Router.route('register')

@@ -1,6 +1,8 @@
 Items = new Mongo.Collection("items");
 Collected = new Mongo.Collection("collected");
 Comments = new Mongo.Collection("comments");
+Facts = new Mongo.Collection("facts");
+
 
 Meteor.publish("items", function () {
     return Items.find();
@@ -10,6 +12,9 @@ Meteor.publish("collected", function () {
 });
 Meteor.publish("comments", function () {
   return Comments.find({});
+});
+Meteor.publish("facts", function () {
+  return Facts.find({});
 });
 
 EasySearch.createSearchIndex('people', {
@@ -30,19 +35,12 @@ EasySearch.createSearchIndex('people', {
 
 Meteor.methods({
     'claimItem': function(item) {
-        var userItem = {
-            _id: item._id,
-            c: item.c,
-            brand: item.brand,
-            name: item.name,
-            userId: Meteor.userId(),
-            time_stamp: new Date()
-        }
-        if(!Collected.findOne(userItem)) {
-            Collected.insert(userItem);
-        } else {
-            Collected.remove(userItem);
-        }
+      if(Collected.find({beer_id: item._id, user_id: Meteor.userId(), name: item.name}).count()< 1) {
+          return Collected.insert({beer_id: item._id, user_id: Meteor.userId(), name: item.name});
+      } else {
+          var id = Collected.findOne({beer_id: item._id, user_id: Meteor.userId(), name: item.name})._id;
+          return Collected.remove({_id:id});
+      }
     },
     'add-item': function(brand, name, message) {
       return Items.insert({
@@ -104,6 +102,62 @@ Meteor.methods({
     for (var i = 0; i < items.length; i++) {
         if (Items.find(items[i]).count() < 1) {
             Items.insert(items[i])
+        }
+    }
+
+    // Facts borrowed from http://www.factslides.com/s-Beer
+    var facts = [
+    {
+      "fact": "A Beer Wave of 388,000 Gallons (or 1.4m L) flooded London in 1814 after a huge vat ruptured.",
+      "n": 1},{ 
+      "fact": "Light is what makes Beer go bad.",
+      "n": 2},{
+      "fact": "George Washington had his own brewhouse on the grounds of Mount Vernon.",
+      "n": 3},{
+      "fact": "Egyptian Pyramid workers were paid with beer: 1 gallon (4L) per day.",
+      "n": 4},{
+      "fact": "The oldest known recipe for BEER is over 4,000 years old, made by Sumerians.",
+      "n": 5},{
+      "fact": "BEER and MARIJUANA are cousins: beer's hops are in the same family of flowering plants as marijuana.",
+      "n": 6},{
+      "fact": "In the Middle Ages BEER was consumed more than water as the alcohol made it safer.",
+      "n": 7},{
+      "fact": "Beer is claimed to help prevent cardiac disease and cognitive decline.",
+      "n": 8},{
+      "fact": "At any given time, 0.7% of the world is drunk. So 50 million people are drunk right now.",
+      "n": 9},{ 
+      "fact": "Cenosillicaphobia is the fear of an empty beer glass.",
+      "n": 10},{
+      "fact": "The world's longest hangover lasted 4 weeks after a Scotsman consumed 60 pints of beer.",
+      "n": 11},{
+      "fact": "The strongest beer in the world has a 67.5% alcohol content.",
+      "n": 12},{
+      "fact": "Slugs like beer.",
+      "n": 13},{
+      "fact": "Beer was not considered an alcoholic beverage in Russia until 2013.",
+      "n": 14},{
+      "fact": "Until the 1970s in Belgium, table beer was served in schools refectories.",
+      "n": 15},{
+      "fact": "At the Wife Carrying World Championships in Finland, first prize is the wife's weight in beer.",
+      "n": 16},{ 
+      "fact": "There's a beer brewed from bananas in Africa.",
+      "n": 17},{
+      "fact": "The Wat Pa Maha Chedi Kaew temple in Thailand was constructed with 1 million bottles of Heineken and a local beer.",
+      "n": 18},{ 
+      "fact": "More Guinness beer is drunk in Nigeria than Ireland.",
+      "n": 19},{ 
+      "fact": "In the Land of the Pharaohs of Egypt, beer was the national currency.",
+      "n": 20},{
+      "fact": "In Argentina, political parties have their own brands of beer.",
+      "n": 21},{
+      "fact": "Norway's first aircraft hijacking was resolved after the hijacker surrendered his weapon in exchange for more beer.",
+      "n": 22},{ 
+      "fact": "When scientist Niels Bohr won the Nobel Prize in 1922, the Carlsberg brewery gave him a perpetual supply of beer piped into his house.",
+      "n": 23}]
+
+    for (var i = 0; i < facts.length; i++) {
+        if (Facts.find(facts[i]).count() < 1) {
+            Facts.insert(facts[i])
         }
     }
 });

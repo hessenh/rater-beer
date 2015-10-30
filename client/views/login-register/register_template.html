@@ -1,13 +1,22 @@
 <template name="register">
-    <form>
-    	<div class="input-group">
-		  <span class="input-group-addon" id="basic-addon1">Username</span>
-		  <input type="email" name="registerEmail" class="form-control registerUsername" placeholder="Username" aria-describedby="basic-addon1">
+	<div class="register">
+		<div class="title">
+			<h1>Register:</h1>
 		</div>
-
-		<div class="input-group">
-		  <span class="input-group-addon" id="basic-addon1">Password</span>
-		  <input type="password" name="registerPassword" class="form-control registerPassword" placeholder="password" aria-describedby="basic-addon1">
+	    <div class="col-md-6">
+	    	<div class="register-row">
+		     	<h3 class="labels">Username</h3>
+		     	<input type="text" class="form-control registerUsername" placeholder="Username" required>
+	    	</div>
+	    	<div class="register-row">
+		     	<h3 class="labels">Password</h3>
+		     	<input type="password" class="form-control registerPassword" placeholder="Password" required>
+	    	</div>
+	    	<div class="register-row">
+		     	<a href="#" class="btn btn-block btn-default register-btn">Register</a>
+	    	</div>
 		</div>
-    </form>
+		<div class="col-md-6">
+		</div>
+	</div>
 </template>

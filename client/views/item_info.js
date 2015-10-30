@@ -4,10 +4,17 @@ Template.item_info.events({
 	'click .btn-pref .btn': function(event) {
 	    $('.btn-pref .btn').removeClass("btn-primary").addClass("btn-default");
 	    $(".tab").addClass("active"); // instead of this do the below 
-	    $(this).removeClass("btn-default").addClass("btn-primary");   
+	    $(this).removeClass("btn-default").addClass("btn-primary");  
+	    console.log("hei") 
 	},
 	'click .claim': function(event) {
-		Meteor.call('claimItem',this);
+		Meteor.call('claimItem',this, function (error, result) {
+			if (error) {
+				console.log(error);
+			} else {
+				console.log(result);
+			}
+		});
 	},
 	'keyup .comment-field': function(event) {
 		if (event.keyCode == 13) {
@@ -27,16 +34,11 @@ Template.item_info.events({
 			}
 			});
 		}
+	},
+	'click .login-register-panel': function(event) {
+		Session.set("login-register-panel-open",!Session.get("login-register-panel-open"));
 	}
 })
-
-Template.registerHelper('claimed', function () {
-    if (Collected.findOne({_id:this._id, userId: Meteor.userId()})) {
-        return false
-    } 
-    return true
-})
-
 
 Template.item_info.helpers({
 	comments_list: function () {
@@ -54,5 +56,14 @@ Template.item_info.helpers({
 			}
 		});
 		return total * 1.0 / number;
+   },
+   login_register_panel_open: function () {
+		return Session.get("login-register-panel-open");
+   },
+   claimed: function () {
+   		if (Collected.find({beer_id:this._id, user_id: Meteor.userId()}).count() > 0) {
+		    return false
+		} 
+		return true
    }
 });

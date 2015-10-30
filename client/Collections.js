@@ -1,12 +1,12 @@
 Items = new Mongo.Collection("items");
 Collected = new Mongo.Collection("collected");
 Comments = new Mongo.Collection('comments');
-
+Facts = new Mongo.Collection("facts");
 
 Meteor.subscribe("items");
 Meteor.subscribe("collected");
 Meteor.subscribe("comments");
-
+Meteor.subscribe("facts");
 
 EasySearch.createSearchIndex('people', {
   'field' : ['brand','name'],

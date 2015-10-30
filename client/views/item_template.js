@@ -1,10 +1,3 @@
-Template.registerHelper('claimed', function () {
-    if (Collected.findOne({_id:this._id, userId: Meteor.userId()})) {
-        return false
-    } 
-    return true
-})
-
 Template.item.events({
     'click .claimItem': function(event) {
       event.preventDefault();
@@ -15,6 +8,15 @@ Template.item.events({
       Router.go('/items/'+this._id);
     }
 })
+
+Template.item.helpers({
+   claimed: function () {
+      if (Collected.find({beer_id:this._id, user_id: Meteor.userId()}).count() > 0) {
+        return false
+    } 
+    return true
+   }
+});
 
 Template.registerHelper('allItems', function() {
   console.log(Items.find().count())

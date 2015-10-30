@@ -1,13 +1,25 @@
 <template name="login">
-    <form>
-   		<div class="input-group">
-		  <span class="input-group-addon" id="basic-addon1">Username</span>
-		  <input type="email" name="loginEmail" class="form-control loginUsername" placeholder="Username" aria-describedby="basic-addon1">
-		</div>
+	{{#if currentUser}}
+    {{else}}
+        <div class="login-register-panel">
+            <h3 class="login-collapse" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Login to collect and review beers!</h3>
+            <div class="collapse" id="collapseExample">
+	            <div class="well">
+	                 <form>
+				   		<div class="input-group login-standard">
+						  <span class="input-group-addon" id="basic-addon1">Username</span>
+						  <input type="email" name="loginEmail" class="form-control loginUsername" placeholder="Username" aria-describedby="basic-addon1">
+						  <span class="input-group-addon" id="basic-addon1">Password</span>
+						  <input type="password" name="loginPassword" class="form-control loginPassword" placeholder="password" aria-describedby="basic-addon1">
+						</div>
+				    </form>
+				    <button id="facebook-login" class="btn btn-default"> Login with Facebook</button>
+	            </div>
+	            <div class="login-register-panel">
+		            <h3 class="register-collapse">Don't Have A Profile? Click here!  </h3>
+		        </div>
+            </div>
+        </div>
+    {{/if}}
 
-		<div class="input-group">
-		  <span class="input-group-addon" id="basic-addon1">Password</span>
-		  <input type="password" name="loginPassword" class="form-control loginPassword" placeholder="password" aria-describedby="basic-addon1">
-		</div>
-    </form>
 </template>

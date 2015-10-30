@@ -1,5 +1,8 @@
 <template name="item_info">
-
+    {{#if currentUser}}
+    {{else}}
+        {{>login}} 
+    {{/if}}
     <div class="item-box">
         <div class="col-md-6">
             <div class="item-img">
@@ -9,10 +12,12 @@
                             <h3>{{name}}</h3>
                         </div>
                         <div class="col-md-6">
-                            {{#if claimed}}
-                                <button type="button" class="btn btn-success btn-circle btn-lg claim button-claim"><i class="glyphicon glyphicon-ok"></i></button>
-                            {{else}}
-                                 <button type="button" class="btn btn-success btn-circle btn-lg claim button-un-claim"><i class="glyphicon glyphicon-remove"></i></button>
+                            {{#if currentUser}}
+                                {{#if claimed}}
+                                    <button type="button" class="btn btn-success btn-circle btn-lg claim button-claim"><i class="glyphicon glyphicon-ok"></i></button>
+                                {{else}}
+                                     <button type="button" class="btn btn-success btn-circle btn-lg claim button-un-claim"><i class="glyphicon glyphicon-remove"></i></button>
+                                {{/if}}
                             {{/if}}
                         </div>
                     </div>
