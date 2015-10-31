@@ -2,11 +2,14 @@ Items = new Mongo.Collection("items");
 Collected = new Mongo.Collection("collected");
 Comments = new Mongo.Collection('comments');
 Facts = new Mongo.Collection("facts");
+Bars = new Mongo.Collection("nearbybars");
 
 Meteor.subscribe("items");
 Meteor.subscribe("collected");
 Meteor.subscribe("comments");
 Meteor.subscribe("facts");
+Meteor.subscribe("nearbybars"); //, {latlng: Session.get("latlng")}
+
 
 EasySearch.createSearchIndex('people', {
   'field' : ['brand','name'],

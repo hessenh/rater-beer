@@ -2,7 +2,7 @@ Items = new Mongo.Collection("items");
 Collected = new Mongo.Collection("collected");
 Comments = new Mongo.Collection("comments");
 Facts = new Mongo.Collection("facts");
-
+Bars = new Mongo.Collection("nearbybars");
 
 Meteor.publish("items", function () {
     return Items.find();
@@ -15,6 +15,20 @@ Meteor.publish("comments", function () {
 });
 Meteor.publish("facts", function () {
   return Facts.find({});
+});
+
+Meteor.publish("nearbybars", function (latlng) {
+   return Bars.find({
+      location: {
+        $near: {
+          $geometry: {
+            "type": "Point",
+            "coordinates": [63.43020, 10.39269]
+          },
+          $maxDistance: 20000   //meters
+        }
+      }
+    });
 });
 
 EasySearch.createSearchIndex('people', {
@@ -160,4 +174,34 @@ Meteor.methods({
             Facts.insert(facts[i])
         }
     }
+    var bars = [
+    {
+      "bar_name": "Dublin",
+      "location": {
+        "type": "Point",
+        "coordinates": [63.43020, 10.39269]
+      }
+    },
+    {
+      "bar_name": "Lille London",
+      "location": {
+        "type": "Point",
+        "coordinates": [63.43399, 10.39819]
+      }
+    },
+    {
+      "bar_name": "Keisern",
+      "location": {
+        "type": "Point",
+        "coordinates": [62.47129, 6.15974]
+      }
+    }
+
+    ]
+    for (var i = 0; i < bars.length; i++) {
+        if (Bars.find(bars[i]).count() < 1) {
+            Bars.insert(bars[i])
+        }
+    }
+    Bars._ensureIndex({location: "2dsphere"});
 });

@@ -10,4 +10,5 @@ Router.route('/items/:_id', {
 });
 
 Router.route('claims');
-Router.route('register')
+Router.route('register');
+Router.route('bars');
